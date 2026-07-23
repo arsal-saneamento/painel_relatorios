@@ -233,7 +233,7 @@ function applyFilters(){
 /* ---------- KPIs ---------- */
 function renderKPIs(data){
   const anos=data.map(r=>r.ano).filter(Boolean);
-  const periodo=anos.length?Math.min(...anos)+' até '+Math.max(...anos):'—';
+  const periodo=anos.length?Math.min(...anos)+'-'+Math.max(...anos):'—';
   const kpis=[
     {v:data.length,l:'Relatórios',c:'var(--accent)'},
     {v:new Set(data.map(r=>r.mun)).size,l:'Municípios',c:'#16a34a'},
