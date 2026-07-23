@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel de Relatórios de Fiscalizações</title>
+<title>Painel de Fiscalizações</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -13,7 +13,7 @@
 :root{
   --bg:#0f172a; --panel:#ffffff; --panel-2:#f8fafc; --ink:#0f172a; --muted:#64748b;
   --line:#e2e8f0; --accent:#0ea5e9; --accent-d:#0369a1; --shadow:0 1px 3px rgba(15,23,42,.08),0 8px 24px rgba(15,23,42,.06);
-  --casal:#2563eb; --conasa:#0891b2; --brk:#f59e0b; --verde:#22c55e; --saae:#a855f7; --conama:#ec4899; --outros:#94a3b8;
+  --casal:#008cff; --conasa:#e6b000; --brk:#0bedf5; --verde:#22c55e; --saae:#a855f7; --conama:#ec4899; --outros:#94a3b8;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--panel-2);color:var(--ink);font-size:14px}
@@ -72,7 +72,7 @@ tbody tr:hover{background:#f1f5f9}
 <header>
   <div class="logo">💧</div>
   <div>
-    <h1>Painel de Relatórios de Fiscalizações</h1>
+    <h1>Painel de Fiscalizações</h1>
     <p>GEFSAN · Base de Dados de Fiscalizações de Saneamento</p>
   </div>
   <div class="src">
@@ -149,7 +149,9 @@ let RAW = [], state = {chartMode:'ano', sort:{key:'Ano',dir:-1}};
 let map, markersLayer, chart;
 
 function norm(d){
-  const lat = parseFloat(d['Latitude']), lng = parseFloat(d['Longitude']);
+  // aceita vírgula OU ponto decimal (o CSV publicado do Sheets usa vírgula no locale pt-BR)
+  const num = v => parseFloat(String(v==null?'':v).trim().replace(',', '.'));
+  const lat = num(d['Latitude']), lng = num(d['Longitude']);
   const mesNum = parseInt(d['Nº do Mês']) || MES_ORD[(d['Mês']||'').toUpperCase()] || 0;
   return {
     mun:d['Município']||'', tipo:d['Tipo']||'', escopo:d['Escopo']||'',
