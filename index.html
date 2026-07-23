@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel de Fiscalizações</title>
+<title>Painel de Relatórios de Fiscalizações</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -72,8 +72,8 @@ tbody tr:hover{background:#f1f5f9}
 <header>
   <div class="logo">💧</div>
   <div>
-    <h1>Painel de Fiscalizações</h1>
-    <p>GEFSAN · Base de Dados de Fiscalizações de Saneamento</p>
+    <h1>Painel de Relatório de Fiscalizações</h1>
+    <p>Gerência de Fiscalização Operacional de Saneamento (Gefsan)</p>
   </div>
   <div class="src">
     <div>Fonte: <span id="srcMode" class="src"></span></div>
@@ -233,7 +233,7 @@ function applyFilters(){
 /* ---------- KPIs ---------- */
 function renderKPIs(data){
   const anos=data.map(r=>r.ano).filter(Boolean);
-  const periodo=anos.length?Math.min(...anos)+'–'+Math.max(...anos):'—';
+  const periodo=anos.length?Math.min(...anos)+' até '+Math.max(...anos):'—';
   const kpis=[
     {v:data.length,l:'Relatórios',c:'var(--accent)'},
     {v:new Set(data.map(r=>r.mun)).size,l:'Municípios',c:'#16a34a'},
